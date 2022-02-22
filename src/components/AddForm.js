@@ -81,7 +81,7 @@ const AddPost = () => {
         <Form.Item label="Body">
         <TextArea onChange={changeInBody} value={body} size='large' showCount rows={4} 
         placeholder="Yo! What's on your mind." 
-        maxLength={20} />
+         />
         </Form.Item>
 
         <Form.Item label="User">
