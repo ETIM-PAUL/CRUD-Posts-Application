@@ -74,7 +74,7 @@ const AddPost = () => {
       <Form>
 
         <Form.Item label="Title">
-          <Input showCount value={title} onChange={changeInTitle} size='large' maxLength={20} 
+          <Input showCount value={title} onChange={changeInTitle} size='large' maxLength={100} 
           placeholder = "Post Title" />
         </Form.Item>
 

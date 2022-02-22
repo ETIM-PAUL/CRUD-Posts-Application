@@ -97,14 +97,14 @@ import { editedPost } from '../redux/actions/actions'
       <Form>
 
         <Form.Item label="Title">
-          <Input showCount onChange={changeInTitle} value={prevtitle} size='large' 
+          <Input showCount onChange={changeInTitle} value={prevtitle} size='large' maxLength={100}
           placeholder = "Post Title" />
         </Form.Item>
 
         <Form.Item label="Body">
         <TextArea onChange={changeInBody} value={prevbody} size='large' showCount rows={4} 
         placeholder="Yo! What's on your mind." 
-        maxLength={80} />
+        maxLength={500} />
         </Form.Item>
 
         <Form.Item label="User">
