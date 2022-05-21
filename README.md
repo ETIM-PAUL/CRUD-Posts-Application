@@ -1,6 +1,6 @@
-Using the Json Placeholder free API to create a CRUD application
 
-this work is hosted on heroku - http://crud-json-app.herokuapp.com/
+
+this work is hosted on heroku - 
 
 this work is done using react and react-redux
 
