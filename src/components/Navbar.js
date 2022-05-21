@@ -4,7 +4,7 @@ export const Navbar = () => {
   return (
     <nav>
       <section>
-        <h1>TASK 1 - CRUD APPLICATION</h1>
+        <h3>TASK 1 - OKADA SAVINGS APPLICATION</h3>
 
         <div className="navContent">
           <div className="navLinks"></div>

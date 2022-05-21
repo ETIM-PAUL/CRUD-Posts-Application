@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import PostsList from './components/PostsListing';
 import PostDetails from './components/PostDetails';
-import EditDetails from './components/EditPost'
 
 import  {Navbar}  from './components/Navbar';
 
@@ -24,7 +23,6 @@ function App() {
       <Route path="/" element={<PostsList/>}/>
       <Route path="/post/delete/:postid" element={<PostsList/>}/> 
       <Route path="/post/:postid" element={<PostDetails/>}/> 
-      <Route path="/post/edit/:postid" element={<EditDetails/>}/> 
     </Routes>
 
     </Router>

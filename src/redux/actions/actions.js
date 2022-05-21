@@ -8,35 +8,24 @@ export const setPosts = (posts) => {
   }
 }
 
-export const addPost = ({title,userId,body,id}) => {
+export const addUser = ({rider,tier,savings,id}) => {
+  console.log(rider)
   return {
-    type: ActionTypes.ADD_POST,
-    payload: {title,userId,body,id}
+    type: ActionTypes.ADD_USER,
+    payload: {rider,tier,savings,id}
   }
 }
 
-export const editedPost = ({userId,id,title,body}) => {
-  return {
-    type: ActionTypes.EDIT_POST,
-    payload: {userId,id,title,body}
-  }
-}
+// export const selectedPost = (post) => {
+//   return {
+//     type: ActionTypes.SELECTED_POST,
+//     payload: post
+//   }
+// }
 
-export const deletePost = (id) => ({
-  type: ActionTypes.DELETE_POST,
-  payload:id,
-})
-
-export const selectedPost = (post) => {
-  return {
-    type: ActionTypes.SELECTED_POST,
-    payload: post
-  }
-}
-
-export const removeSelectedPost = (post) => {
-  return {
-    type: ActionTypes.REMOVE_SELECTED_POST,
-  }
-}
+// export const removeSelectedPost = (post) => {
+//   return {
+//     type: ActionTypes.REMOVE_SELECTED_POST,
+//   }
+// }
 

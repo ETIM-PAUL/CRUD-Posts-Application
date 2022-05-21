@@ -1,65 +1,57 @@
-import React, {useState} from 'react'
-import axios from 'axios'
+import React, {useState,useEffect} from 'react'
 
 //notifications bar
 import { toast } from "react-toastify";
 
-import {addPost} from "../redux/actions/actions"
+import {addUser} from "../redux/actions/actions"
 
 import {useDispatch,useSelector} from "react-redux"
 
 //antd components
 import {Row,Col,Button, Input,Form,Select} from 'antd'
 
-const AddPost = () => {
+const AddRider = () => {
   
-  const [title, setTitle] = useState('')
-  const [body, setBody] = useState('')
-  const [userId, setUserId] = useState('')
-  let [id, setId] = useState(100)
+  const [rider, setRider] = useState('')
+  const [tier, setTier] = useState('')
+  const [savings, setSavings] = useState()
+  const [interest, setInterest] = useState()
+  let [id, setId] = useState(1)
 
   const dispatch =useDispatch()
-  const posts = useSelector(state => state.allPosts.posts)
+  const users = useSelector(state => state.allUsers.users)
 
-  let uniqueUserId = [...new Set(posts.map(x => x.userId))]
   
-  const changeInTitle = e => setTitle(e.target.value)
-  const changeInBody = e => setBody(e.target.value)
+  const changeInRider = e => setRider(e.target.value)
   const onChange = (value) => {
-    setUserId(`${value}`)
-  }
+    if(value==="tier1"){
 
-  const {TextArea} = Input
+      setSavings(10000)
+      setInterest(7);
+
+    }if(value==="tier2"){
+      setInterest(15);
+      setSavings(15000)
+
+    }if(value==="tier3"){
+      setInterest(25);
+      setSavings(20000)
+    }
+    setTier(value)
+  }
 
   const { Option } = Select;
 
-
-  const savePost =  () =>{
+  const saveRider =  () =>{
     try {
-      if(!title | !body | !userId){
-        toast("Please provide a title, content and a user")
+      if(!rider | !tier){
+        toast("Please provide a rider and his tier level")
       }
       else {
-        setId(++id)
-        fetch('https://jsonplaceholder.typicode.com/posts', {
-          method: 'POST',
-          body: JSON.stringify({
-            title: title,
-            body: body,
-          userId: userId,
-          id:id
-        }),
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-        })
-          .then((response) => response.json())
-          .then((json) => console.log(json));
-          
-          dispatch(addPost({userId,id,title,body}))
+          dispatch(addUser({tier,id,savings,rider}))
         toast("Post, successfully added")
-        setTitle('')
-        setBody('')
+        setRider('')
+        setTier('')
       }
       
     } catch (error) {
@@ -70,35 +62,37 @@ const AddPost = () => {
 
       <Row justify='center'>
       <Col span={12}>
-      <h2>Add a New Post</h2>
+      <h2>Add a New User</h2>
       <Form>
 
         <Form.Item label="Title">
-          <Input showCount value={title} onChange={changeInTitle} size='large' maxLength={100} 
-          placeholder = "Post Title" />
+          <Input showCount value={rider} onChange={changeInRider} size='large' maxLength={100} 
+          placeholder = "Rider's Full Name" />
         </Form.Item>
 
-        <Form.Item label="Body">
-        <TextArea onChange={changeInBody} value={body} size='large' showCount rows={4} 
-        placeholder="Yo! What's on your mind." 
-        maxLength={500} />
-        </Form.Item>
 
         <Form.Item label="User">
         <Select
           size="large"
-          placeholder="Select a user"
+          placeholder="Select a Tier level"
           optionFilterProp="children"
           onChange={onChange}
-        >
-          {uniqueUserId.map(uid => (
-          <Option value={uid}>{uid}</Option>
-          ))}
+          >
+          <Option value="tier1">Tier 1</Option>
+          <Option value="tier2">Tier 2</Option>
+          <Option value="tier3">Tier 3</Option>
         </Select>
         </Form.Item>
+          {/* <Form.Item label="Returns">
+          <TextArea size='large' showCount rows={4} readOnly
+           >kkkkkkkk</TextArea>
+          </Form.Item> */}
+          {savings !== undefined &&
+          <p>You will be making a weekly savings of &#8358;{savings}, With an interest rate of {interest}%. You will recieve a weekly payment of {(Math.round((interest / 100) * savings))+(savings)}</p>
+          }
 
         <Row justify='center'>
-        <Button type='primary' onClick={savePost}>Save Post</Button>
+        <Button type='primary' onClick={saveRider}>Save Rider's Details</Button>
         </Row>
       </Form>
 
@@ -107,4 +101,4 @@ const AddPost = () => {
   )
 }
 
-export default AddPost
+export default AddRider

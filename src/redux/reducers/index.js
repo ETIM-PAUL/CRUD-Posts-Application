@@ -1,12 +1,6 @@
 import { combineReducers } from "redux";
-import { postReducer, selectedPostReducer, addPostReducer } from "./postReducer";
+import { savingsReducer } from "./ridersReducer";
 
 export const reducer = combineReducers({
-  allPosts: postReducer,
-  post:selectedPostReducer,
-  // addedpost:addPostReducer
-
-  // product: selectedProductsReducer,
+  allUsers: savingsReducer,
 });
-
-// export default reducers;

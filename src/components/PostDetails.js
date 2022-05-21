@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import axios from 'axios'
 import {useParams,Link} from "react-router-dom"
-import { selectedPost,removeSelectedPost } from '../redux/actions/actions'
+// import { selectedPost,removeSelectedPost } from '../redux/actions/actions'
 import { useDispatch,useSelector } from 'react-redux'
 import {Row,Col,Divider,Button} from 'antd'
 
@@ -20,7 +20,7 @@ const PostDetails = () => {
       const response = await axios
       .get(`https://jsonplaceholder.typicode.com/posts/${postid}`)
       .then((response) => (response.data))
-      dispatch(selectedPost(response))
+      // dispatch(selectedPost(response))
       
     } catch (error) {
       console.log(error)
@@ -31,7 +31,7 @@ const PostDetails = () => {
   useEffect(() => {
     if (postid && postid !== "") fetchPostDetail() 
     return () => {
-      dispatch(removeSelectedPost())
+      // dispatch(removeSelectedPost())
     }
   }, [postid])
   
