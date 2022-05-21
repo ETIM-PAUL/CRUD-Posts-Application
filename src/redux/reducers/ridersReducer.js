@@ -1,9 +1,7 @@
 import { ActionTypes } from "../constants/action-types"
 
 const initialState = {
-  users:localStorage.getItem("riders")
-    ? JSON.parse(localStorage.getItem("riders"))
-    : [],
+  users:[],
 }
 export const savingsReducer = (state=initialState, {type,payload}) => {
   switch (type) {
@@ -14,16 +12,25 @@ export const savingsReducer = (state=initialState, {type,payload}) => {
         ...state,
         users: [...state.users, payload]
       }
-      
-      case ActionTypes.CLOSE_ACCOUNT:
-        console.log(typeof payload)
+      case ActionTypes.INCREASE_SAVINGS:
+        const user =  state.users.findIndex(user => user.id === payload.id)
+        const savings =  state.users.filter(user => user.id === payload.id)
+        let riderSavings = savings[0].initialSavings
+        state.users[user].savings = (riderSavings+payload.savings)
         return {
-          posts: [
-            ...state.posts.filter(post => post.id !== payload)
-          ]
+          ...state,
+          users: [...state.users]
         }
-        default:
-          return state;
-        }
+        
+        case ActionTypes.CLOSE_ACCOUNT:
+          console.log(typeof payload)
+          return {
+            posts: [
+              ...state.posts.filter(post => post.id !== payload)
+            ]
+          }
+          default:
+            return state;
+          }
       }
 

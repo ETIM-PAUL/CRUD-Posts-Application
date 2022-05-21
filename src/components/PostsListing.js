@@ -1,23 +1,24 @@
 import React,{useState, useEffect} from 'react'
 
-import { useDispatch } from "react-redux";
-import { useSelector } from 'react-redux'
-import {Link} from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { Divider, Button, Row,Col , Space, Popconfirm} from 'antd'
+import {increaseSavings} from "../redux/actions/actions"
+
 
 import AddPost from './AddForm';
 
 const PostsList = () => {
 
-  //redux hooks
+  const dispatch =useDispatch()
+
   const users = useSelector(state => state.allUsers.users)
-  const dispatch = useDispatch();
+  let totalAmount = users.map(user => user.savings)
+  const sum = totalAmount.reduce((partialSum, a) => partialSum + a, 0);
 
-    useEffect(() => {
-      // getPosts()
-    }, [])
-
+  const increaseAmount = (id,savings) => {
+    dispatch(increaseSavings(id,savings))
+  }
 
   return (
     <>
@@ -26,35 +27,22 @@ const PostsList = () => {
 
     <Row justify='center' style={{paddingTop:'30px'}}>
       <Col span={12} >
-        <h1 style={{textAlign:'center'}}><u>Users</u></h1>
-        {users.map(post => (
-          <div key={post.id}>
+        <h3>
+        Total Money Collected From Members:<b> {sum}</b></h3>
+        {users.map(rider => (
+          <div key={rider.id}>
             <article className="post-excerpt" >
-              <h3> {post.title} </h3>
+              <h3> Rider's Name: {rider.rider} </h3>
+              <button onClick = {() => increaseAmount(rider.id,rider.savings)}>Add another weekly payment</button>
        <Divider/>
 
-        <h4 style={{paddingLeft:'10px'}}>{post.savings.substring(0, 100)}</h4>
+        <h6 style={{paddingLeft:'10px'}}>{rider.initialSavings} ~ weekly payment</h6>
+        <h6 style={{paddingLeft:'10px'}}>{rider.weeklyGain} ~ weekly payout</h6>
+        <h6>Total Money Saved: {rider.savings}</h6>
         <Divider/>
 
-        <h4 style={{textAlign:'center'}}>Posted by user {post.userId}</h4>
-          <div style={{paddingLeft:'20px', paddingBottom:'15px'}} >
-          <Space type='vertical'>
-            <Link to={`/post/edit/${post.id}`}>
-              <Button type='primary'>Edit Post</Button>
-            </Link>
-            <Link to={`/post/${post.id}`}>
-              <Button type='primary'>View Post</Button>
-            </Link>
-      
-        <Popconfirm 
-          placement='top' 
-          title='Are you sure you want to delete this task' 
-          >
-          <Button type='primary'>Delete Post</Button>
-        </Popconfirm>
-      
-        </Space>
-      </div>
+        <h4>Rider's Tier: {rider.tier}</h4>
+
       </article>
       <br/><br/>
      </div>
